@@ -4,6 +4,7 @@ import 'package:your_doctor/routes/app_router.dart';
 import 'package:your_doctor/shared/themes/app_theme.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   init();
   runApp(const YourDoctorApp());
 }

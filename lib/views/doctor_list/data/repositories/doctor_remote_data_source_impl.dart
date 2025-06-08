@@ -1,22 +1,22 @@
-import '../../domain/entities/doctor.dart';
-import '../../domain/repositories/doctor_repository.dart';
+import 'package:dio/dio.dart';
 import '../datasources/doctor_remote_data_source.dart';
+import '../models/doctor_model.dart';
 
-class DoctorRepositoryImpl implements DoctorRepository {
-  final DoctorRemoteDataSource remote;
 
-  DoctorRepositoryImpl(this.remote);
+class DoctorRemoteDataSourceImpl implements DoctorRemoteDataSource {
+  final Dio dio;
+
+  DoctorRemoteDataSourceImpl({required this.dio});
 
   @override
-  Future<List<Doctor>> getAvailableDoctors() async {
-    final models = await remote.fetchDoctors();
-    return models
-        .map((m) => Doctor(
-              id: m.id,
-              name: m.name,
-              specialty: m.specialty,
-              avatarUrl: m.avatarUrl,
-            ))
-        .toList();
+  Future<List<DoctorModel>> getAvailableDoctors() async {
+    try {
+      final response = await dio.get('/doctors');
+      return (response.data as List)
+          .map((json) => DoctorModel.fromJson(json))
+          .toList();
+    } on DioException catch (e) {
+      throw Exception('Failed to fetch doctors: ${e.message}');
+    }
   }
 }

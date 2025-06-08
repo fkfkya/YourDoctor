@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class AppointmentModel {
@@ -19,24 +20,31 @@ class AppointmentModel {
     this.status = AppointmentStatus.scheduled,
   });
 
-  // Конвертация из JSON
   factory AppointmentModel.fromJson(Map<String, dynamic> json) {
-    final timeParts = (json['time'] as String).split(':');
+    // Преобразуем строку времени в TimeOfDay
+    final timeString = json['time'] as String;
+    final timeParts = timeString.split(':');
+    final time = TimeOfDay(
+      hour: int.parse(timeParts[0]),
+      minute: int.parse(timeParts[1]),
+    );
 
+    // Обрабатываем статус (с защитой от null)
+    final statusString = json['status'] as String? ?? 'scheduled';
+    final status = AppointmentStatus.values.firstWhere(
+          (e) => e.toString().split('.').last == statusString,
+      orElse: () => AppointmentStatus.scheduled,
+    );
+
+    // Основные поля с проверкой типов
     return AppointmentModel(
-      id: json['id'],
-      doctorId: json['doctorId'],
-      userId: json['userId'],
-      date: DateTime.parse(json['date']),
-      time: TimeOfDay(
-        hour: int.parse(timeParts[0]),
-        minute: int.parse(timeParts[1]),
-      ),
-      notes: json['notes'],
-      status: AppointmentStatus.values.firstWhere(
-            (e) => e.toString() == 'AppointmentStatus.${json['status']}',
-        orElse: () => AppointmentStatus.scheduled,
-      ),
+      id: json['id'] as String,
+      doctorId: json['doctorId'] as String,
+      userId: json['userId'] as String,
+      date: DateTime.parse(json['date'] as String),
+      time: time,
+      notes: json['notes'] as String?,
+      status: status,
     );
   }
 
