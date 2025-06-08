@@ -4,9 +4,9 @@ import '../entities/doctor.dart';
 class GetAvailableDoctors {
   final DoctorRepository repository;
 
-  GetAvailableDoctors({required this.repository});
+  GetAvailableDoctors(this.repository);
 
   Future<List<Doctor>> call() async {
-    return await repository.getAvailableDoctors();
+    return repository.getAvailableDoctors();
   }
 }

@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-=======
-
->>>>>>> cf975edc4e66488e95d17b8b4365af27a24865d2
 import '../../domain/entities/doctor.dart';
 
 class DoctorTile extends StatelessWidget {
@@ -12,7 +8,6 @@ class DoctorTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     return ListTile(
       leading: CircleAvatar(
         backgroundImage: NetworkImage(doctor.avatarUrl),
@@ -28,31 +23,4 @@ class DoctorTile extends StatelessWidget {
       },
     );
 }
-=======
-    return Card(
-      margin: const EdgeInsets.all(8.0),
-      child: ListTile(
-        leading: const CircleAvatar(
-          child: Icon(Icons.person),
-        ),
-        title: Text(doctor.occupation),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(doctor.fullName),
-            const SizedBox(height: 4),
-            Text(
-              'Расписание: ${doctor.schedule.keys.join(', ')}',
-              style: const TextStyle(fontSize: 12),
-            ),
-          ],
-        ),
-        trailing: const Icon(Icons.arrow_forward),
-        onTap: () {
-          // Навигация к экрану записи
-        },
-      ),
-    );
-  }
->>>>>>> cf975edc4e66488e95d17b8b4365af27a24865d2
 }
