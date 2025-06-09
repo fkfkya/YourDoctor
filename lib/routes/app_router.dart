@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:your_doctor/views/doctor_list/presentation/pages/doctor_list_page.dart';
 import 'package:your_doctor/views/appointment/presentation/pages/appointment_page.dart';
 import 'package:your_doctor/views/profile/presentation/pages/profile_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart'; 
+import '../injection.dart'; 
+import '../views/profile/presentation/bloc/profile_bloc.dart'; 
+import '../views/profile/presentation/bloc/profile_event.dart';
 
 class AppRouter {
   static Route<dynamic> generate(RouteSettings settings) {
@@ -14,7 +18,12 @@ class AppRouter {
           builder: (_) => AppointmentPage(doctorId: doctorId),
         );
       case ProfilePage.routeName:
-        return MaterialPageRoute(builder: (_) => const ProfilePage());
+         return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+              create: (_) => getIt<ProfileBloc>()..add(LoadUserAppointments()),
+              child: const ProfilePage(),
+            ),
+          );
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

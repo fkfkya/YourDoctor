@@ -5,3 +5,4 @@ abstract class ProfileRemoteDataSource {
   /// Получить список записей текущего пользователя
   Future<List<UserAppointmentModel>> fetchUserAppointments();
 }
+
