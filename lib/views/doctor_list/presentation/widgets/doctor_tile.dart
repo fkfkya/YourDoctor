@@ -8,19 +8,20 @@ class DoctorTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(
-        backgroundImage: NetworkImage(doctor.avatarUrl),
+    return Card(
+      color: Color(0xeeeeeeee),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: ListTile(
+        title: Text(doctor.specialty),
+        subtitle: Text(doctor.name),
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            '/appointment',
+            arguments: doctor.id,
+          );
+        },
       ),
-      title: Text(doctor.name),
-      subtitle: Text(doctor.specialty),
-      onTap: () {
-        Navigator.pushNamed(
-          context,
-          '/appointment',
-          arguments: doctor.id,
-        );
-      },
     );
-}
+  }
 }

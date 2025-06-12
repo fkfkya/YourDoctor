@@ -20,7 +20,7 @@ class YourDoctorApp extends StatelessWidget {
       title: 'YourDoctor',
       theme: AppTheme.light,
       onGenerateRoute: AppRouter.generate,
-      initialRoute: '/profile',
+      initialRoute: '/doctor_list',
     );
   }
 }

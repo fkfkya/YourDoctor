@@ -10,13 +10,12 @@ class DoctorRepositoryImpl implements DoctorRepository {
 
   @override
   Future<List<Doctor>> getAvailableDoctors() async {
-    final models = await remoteDataSource.getAvailableDoctors(); // Исправленное имя метода
+    final models = await remoteDataSource.getAvailableDoctors();
     return models
         .map((model) => Doctor(
       id: model.id,
       name: model.name,
       specialty: model.specialty,
-      avatarUrl: model.avatarUrl,
     ))
         .toList();
   }
