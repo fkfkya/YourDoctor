@@ -9,7 +9,7 @@ class DoctorTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Color(0xeeeeeeee),
+      color: Color(0xfff5f9fa),
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: ListTile(
         title: Text(doctor.specialty),
