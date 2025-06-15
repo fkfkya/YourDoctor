@@ -13,7 +13,7 @@ class DoctorRemoteDataSourceImpl implements DoctorRemoteDataSource {
     try {
       return List.from(doctors_db)..sort((a, b) => a.specialty.compareTo(b.specialty));
     } on DioException catch (e) {
-      throw Exception('Failed to fetch doctors: ${e.message}');
+      throw Exception('Не удалось обновить список врачей: ${e.message}');
     }
   }
 }
