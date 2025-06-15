@@ -5,5 +5,4 @@ abstract class ProfileEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-/// Загрузить записи пользователя
 class LoadUserAppointments extends ProfileEvent {}
