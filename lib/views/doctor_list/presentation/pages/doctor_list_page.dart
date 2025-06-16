@@ -7,7 +7,6 @@ import '../bloc/doctor_list_event.dart';
 import '../bloc/doctor_list_state.dart';
 import '../widgets/doctor_tile.dart';
 
-/// Страница со списком врачей
 class DoctorListPage extends StatelessWidget {
   static const routeName = '/doctor_list';
   const DoctorListPage({Key? key}) : super(key: key);

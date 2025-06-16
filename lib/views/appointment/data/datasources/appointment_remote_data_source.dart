@@ -3,6 +3,8 @@ import 'package:your_doctor/views/doctor_list/data/datasources/schedules_db.dart
 import 'package:intl/intl.dart';
 import 'package:pair/pair.dart';
 import '../../../doctor_list/data/models/schedule.dart';
+import 'package:your_doctor/views/profile/data/datasources/fake_profile_remote_data_source.dart';
+import 'package:your_doctor/views/profile/data/models/user_appointment_model.dart';
 
 final Map<String, List<AvailableTime>> scheduleDb = {};
 
@@ -66,5 +68,8 @@ class AppointmentRemoteDataSourceImpl implements AppointmentRemoteDataSource {
              t.date.day == time.date.day &&
              t.time == time.time,
     );
+    appoint_db.add(UserAppointmentModel(appointment_id: (appoint_db.length+1).toString(),
+        doctor_id: doctorId, time: DateTime(time.date.year, time.date.month, time.date.day,
+            DateTime.parse(time.time).hour.toInt(), DateTime.parse(time.time).minute.toInt())));
   }
 }

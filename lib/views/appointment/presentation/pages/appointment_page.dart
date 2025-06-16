@@ -7,6 +7,10 @@ import '../widgets/calendar_widget.dart';
 import '../widgets/time_slot_tile.dart';
 import '../../../doctor_list/data/datasources/doctors_db.dart';
 import '../../../doctor_list/data/models/doctor_model.dart';
+import 'package:your_doctor/views/appointment/data/datasources/appointment_remote_data_source.dart';
+import 'package:your_doctor/views/appointment/data/models/availability_model.dart';
+import 'package:your_doctor/views/profile/data/datasources/fake_profile_remote_data_source.dart';
+import 'package:your_doctor/views/profile/data/models/user_appointment_model.dart';
 
 class AppointmentPage extends StatefulWidget {
   static const routeName = '/appointment';
@@ -52,7 +56,6 @@ class _AppointmentPageState extends State<AppointmentPage> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // 👇 Информация о враче перед расписанием
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -112,6 +115,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                               ),
                             );
                             Navigator.pop(context);
+                            bookApp(widget.doctorId, state.selectedTime!);
                           }
                         : null,
                     child: const Text('Записаться'),
@@ -130,4 +134,17 @@ class _AppointmentPageState extends State<AppointmentPage> {
       ),
     );
   }
+}
+
+
+Future<void> bookApp(String doctorId, AvailableTime time) async {
+  scheduleDb[doctorId]?.removeWhere(
+        (t) => t.date.year == time.date.year &&
+        t.date.month == time.date.month &&
+        t.date.day == time.date.day &&
+        t.time == time.time,
+  );
+  appoint_db.add(UserAppointmentModel(appointment_id: (appoint_db.length+1).toString(),
+      doctor_id: doctorId, time: DateTime(time.date.year, time.date.month, time.date.day,
+          DateTime.parse(time.time).hour.toInt(), DateTime.parse(time.time).minute.toInt())));
 }
