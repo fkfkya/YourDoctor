@@ -11,8 +11,8 @@ class ProfileRepositoryImpl implements ProfileRepository {
   Future<List<UserAppointment>> getUserAppointments() async {
     final models = await remote.fetchUserAppointments();
     return models.map((m) => UserAppointment(
-      appointmentId: m.appointmentId,
-      doctorName: m.doctorName,
+      appointment_id: m.appointment_id,
+      doctor_id: m.doctor_id,
       time: m.time,
     )).toList();
   }

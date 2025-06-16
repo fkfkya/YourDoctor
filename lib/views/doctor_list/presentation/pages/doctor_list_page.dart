@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:your_doctor/injection.dart'; 
 import '../widgets/loading_indicator.dart';
-import '../../domain/entities/doctor.dart';
 import '../bloc/doctor_list_bloc.dart';
 import '../bloc/doctor_list_event.dart';
 import '../bloc/doctor_list_state.dart';
@@ -18,7 +17,19 @@ class DoctorListPage extends StatelessWidget {
     return BlocProvider<DoctorListBloc>(
       create: (_) => getIt<DoctorListBloc>()..add(LoadDoctors()),
       child: Scaffold(
-        appBar: AppBar(title: const Text('Выбор врача')),
+        appBar: AppBar(
+            title: const Text('Выбор врача'),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 16.0),
+                child: IconButton(
+                  icon: Image.asset('assets/profile_icon.png'),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/profile');
+                  },
+                ),
+              ),
+            ],),
         body: BlocBuilder<DoctorListBloc, DoctorListState>(
           builder: (context, state) {
             if (state is DoctorListLoading) {

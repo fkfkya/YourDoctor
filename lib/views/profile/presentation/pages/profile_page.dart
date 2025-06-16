@@ -12,7 +12,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Профиль')),
+      appBar: AppBar(title: const Text('Ваши записи')),
       body: BlocProvider(
         create: (_) => context.read<ProfileBloc>()..add(LoadUserAppointments()),
         child: BlocBuilder<ProfileBloc, ProfileState>(

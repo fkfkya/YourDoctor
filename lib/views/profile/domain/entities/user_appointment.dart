@@ -1,11 +1,11 @@
 class UserAppointment {
-  final String appointmentId;
-  final String doctorName;
+  final String appointment_id;
+  final String doctor_id;
   final DateTime time;
 
   UserAppointment({
-    required this.appointmentId,
-    required this.doctorName,
+    required this.appointment_id,
+    required this.doctor_id,
     required this.time,
   });
 }
