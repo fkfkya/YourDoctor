@@ -1,22 +1,64 @@
 import 'package:flutter/material.dart';
 
+typedef DateCallback = void Function(DateTime date);
+
 class CalendarWidget extends StatelessWidget {
-  final List<DateTime> availableTimes;
-  final ValueChanged<DateTime> onDateSelected;
+  final List<DateTime> availableDates;
+  final DateCallback onDateSelected;
 
   const CalendarWidget({
     super.key,
-    required this.availableTimes,
+    required this.availableDates,
     required this.onDateSelected,
   });
 
   @override
   Widget build(BuildContext context) {
-    // TODO: отобразить календарь и вызвать onDateSelected при выборе даты
-    return Container(
-      height: 200,
-      color: Colors.grey[200],
-      child: const Center(child: Text('Календарь здесь')),
+    return SizedBox(
+      height: 96,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: availableDates.length,
+        itemBuilder: (context, index) {
+          final date = availableDates[index];
+          return GestureDetector(
+            onTap: () => onDateSelected(date),
+            child: Container(
+              width: 70,
+              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.blue.shade100,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '${date.day}/${date.month}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '${date.year}',
+                    style: const TextStyle(fontSize: 12),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

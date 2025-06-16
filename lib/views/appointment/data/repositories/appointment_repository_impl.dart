@@ -1,22 +1,19 @@
-import '../../domain/repositories/appointment_repository.dart';
+import '../../data/models/availability_model.dart';
 import '../datasources/appointment_remote_data_source.dart';
+import '../../domain/repositories/appointment_repository.dart';
 
 class AppointmentRepositoryImpl implements AppointmentRepository {
-  final AppointmentRemoteDataSource remote;
+  final AppointmentRemoteDataSource remoteDataSource;
 
-  AppointmentRepositoryImpl(this.remote);
+  AppointmentRepositoryImpl(this.remoteDataSource);
 
   @override
-  Future<List<DateTime>> fetchAvailableTimes(String doctorId) async {
-    final availability = await remote.fetchAvailability(doctorId);
-    return availability.slots
-        .where((slot) => slot.isAvailable)
-        .map((slot) => slot.time)
-        .toList();
+  Future<List<AvailableTime>> getAvailableTimes(String doctorId) {
+    return remoteDataSource.fetchAvailableTimes(doctorId);
   }
 
   @override
-  Future<void> bookAppointment(String doctorId, DateTime time) {
-    return remote.bookAppointment(doctorId, time);
+  Future<void> bookAppointment(String doctorId, AvailableTime time) {
+    return remoteDataSource.sendBooking(doctorId, time);
   }
 }

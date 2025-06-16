@@ -1,7 +1,7 @@
-abstract class AppointmentRepository {
-  /// Список доступных времён для записи
-  Future<List<DateTime>> fetchAvailableTimes(String doctorId);
+import "../../data/models/availability_model.dart";
 
-  /// Записать на приём
-  Future<void> bookAppointment(String doctorId, DateTime time);
+abstract class AppointmentRepository {
+  Future<List<AvailableTime>> getAvailableTimes(String doctorId);
+  Future<void> bookAppointment(String doctorId, AvailableTime time);
 }
+

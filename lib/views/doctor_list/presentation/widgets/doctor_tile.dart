@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/doctor.dart';
+import '../../../appointment/presentation/pages/appointment_page.dart';
 
 class DoctorTile extends StatelessWidget {
   final Doctor doctor;
@@ -17,7 +18,7 @@ class DoctorTile extends StatelessWidget {
         onTap: () {
           Navigator.pushNamed(
             context,
-            '/appointment',
+            AppointmentPage.routeName,
             arguments: doctor.id,
           );
         },

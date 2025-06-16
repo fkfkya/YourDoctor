@@ -21,6 +21,8 @@ class YourDoctorApp extends StatelessWidget {
       theme: AppTheme.light,
       onGenerateRoute: AppRouter.generate,
       initialRoute: '/doctor_list',
-    );
+      debugShowCheckedModeBanner: false,
+  );
+
   }
 }
